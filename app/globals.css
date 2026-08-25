@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors — GridSense dark theme (CLAUDE.md) */
+  --color-canvas: #0b0f1a;
+  --color-sidebar: #101425;
+  --color-surface: #111827;
+  --color-ink: #f8fafc;
+  --color-slate: #94a3b8;
+  --color-hairline: #334155;
+  --color-primary: #4b4fe0;
+  --color-success-dot: #1e8e5a;
+  --color-success: #34d399;
+  --color-warning-dot: #c67c0b;
+  --color-warning: #f59e0b;
+  --color-critical-dot: #c6402e;
+  --color-critical: #ef4444;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-lg: 12px;
+
+  /* Fonts */
+  --font-sans: var(--font-outfit), sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), monospace;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}

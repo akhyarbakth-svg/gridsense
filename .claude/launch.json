@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "gridsense-dev",
+      "runtimeExecutable": "E:\\Claude Code\\gridsense-smart-energy-management-dashboard\\dev.cmd",
+      "runtimeArgs": [],
+      "port": 3000
+    }
+  ]
+}
