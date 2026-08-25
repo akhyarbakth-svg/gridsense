@@ -16,6 +16,15 @@
   --color-critical-dot: #c6402e;
   --color-critical: #ef4444;
 
+  /* Sunken surface — inset controls on a card (e.g. alert card actions) */
+  --color-surface-sunken: #0f172a;
+
+  /* Status pill backgrounds (deep, low-chroma beds for status text) */
+  --color-badge-success: #064e3b;
+  --color-badge-warning: #78350f;
+  --color-badge-critical: #7f1d1d;
+  --color-badge-neutral: #1e293b;
+
   /* Radius */
   --radius-sm: 8px;
   --radius-lg: 12px;

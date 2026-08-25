@@ -1,29 +1,55 @@
 // Signature "pulse mark" — a dot with a soft outer ring, GridSense's live-status indicator.
 // Component #1 in the CLAUDE.md build order; reused anywhere a "live" state is shown.
+//
+// Geometry matches Figma (node 34:39): the soft ring fills the box, the solid dot is
+// half the box, both centered and sharing one hue — the ring is the same color at low alpha.
+// Rendered at 8px (KPI status rows), 10px (alert bar) and 16px (table rows).
 
-type PulseStatus = "success" | "warning" | "critical" | "primary";
+export type PulseStatus =
+  | "normal" // indigo — the Figma "Normal" state
+  | "primary" // alias of normal
+  | "success"
+  | "warning"
+  | "critical";
 
-const colors: Record<PulseStatus, { dot: string; ping: string }> = {
-  success: { dot: "bg-success-dot", ping: "bg-success" },
-  warning: { dot: "bg-warning-dot", ping: "bg-warning" },
-  critical: { dot: "bg-critical-dot", ping: "bg-critical" },
-  primary: { dot: "bg-primary", ping: "bg-primary" },
+const fills: Record<PulseStatus, string> = {
+  normal: "bg-primary",
+  primary: "bg-primary",
+  success: "bg-success-dot",
+  warning: "bg-warning-dot",
+  critical: "bg-critical-dot",
 };
 
 export function PulseMark({
-  status = "success",
+  status = "normal",
+  size = 8,
+  animate = false,
   className = "",
 }: {
   status?: PulseStatus;
+  /** Box size in px — the ring spans this, the dot is half of it. */
+  size?: number;
+  /** Adds a slow breathing animation to the ring. Static by default, matching the design. */
+  animate?: boolean;
   className?: string;
 }) {
-  const c = colors[status];
+  const fill = fills[status];
+
   return (
-    <span className={`relative inline-flex h-2 w-2 shrink-0 ${className}`}>
+    <span
+      className={`relative inline-block shrink-0 ${className}`}
+      style={{ width: size, height: size }}
+      aria-hidden
+    >
       <span
-        className={`absolute inline-flex h-full w-full rounded-full opacity-60 animate-ping ${c.ping}`}
+        className={`absolute inset-0 rounded-full opacity-30 ${fill} ${
+          animate ? "animate-pulse" : ""
+        }`}
       />
-      <span className={`relative inline-flex h-2 w-2 rounded-full ${c.dot}`} />
+      <span
+        className={`absolute rounded-full ${fill}`}
+        style={{ inset: size / 4 }}
+      />
     </span>
   );
 }
