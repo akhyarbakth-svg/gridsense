@@ -9,6 +9,7 @@ export const alerts: Alert[] = [
     durationMinutes: 34,
     expectedImpact: "Risk of automatic trip, ~4,200 customers on Mirpur Substation",
     status: "active",
+    asset: { kind: "transformer", id: "TR-07" },
   },
   {
     id: "ALT-2049",
@@ -18,6 +19,7 @@ export const alerts: Alert[] = [
     durationMinutes: 118,
     expectedImpact: "Minor efficiency degradation, no customer impact expected",
     status: "acknowledged",
+    asset: { kind: "feeder", id: "F-12" },
   },
   {
     id: "ALT-2050",
@@ -27,6 +29,7 @@ export const alerts: Alert[] = [
     durationMinutes: 12,
     expectedImpact: "Elevated fault risk across 2 transformers",
     status: "active",
+    asset: { kind: "substation", id: "SUB-UTTARA" },
   },
   {
     id: "ALT-2051",
@@ -36,5 +39,6 @@ export const alerts: Alert[] = [
     durationMinutes: 240,
     expectedImpact: "No impact, planned maintenance",
     status: "resolved",
+    asset: { kind: "substation", id: "SUB-BANANI" },
   },
 ];

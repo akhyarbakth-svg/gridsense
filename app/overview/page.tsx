@@ -1,5 +1,5 @@
-import { PageHeader } from "@/components/PageHeader";
+import { OverviewDashboard } from "@/components/overview/OverviewDashboard";
 
 export default function OverviewPage() {
-  return <PageHeader title="Overview Dashboard" breadcrumb={["Monitor", "Overview"]} />;
+  return <OverviewDashboard />;
 }

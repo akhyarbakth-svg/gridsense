@@ -42,6 +42,12 @@ export interface Feeder {
 export type AlertSeverity = "critical" | "warning" | "info";
 export type AlertStatus = "active" | "acknowledged" | "resolved";
 
+/** Points at the asset an interaction should reveal — drives the contextual drawer. */
+export type AssetRef =
+  | { kind: "substation"; id: string }
+  | { kind: "feeder"; id: string }
+  | { kind: "transformer"; id: string };
+
 export interface Alert {
   id: string;
   severity: AlertSeverity;
@@ -50,6 +56,8 @@ export interface Alert {
   durationMinutes: number;
   expectedImpact: string;
   status: AlertStatus;
+  /** The affected asset. Alert cards open the drawer on this, per the drawer pattern. */
+  asset: AssetRef;
 }
 
 export interface OutageTimelineEntry {
