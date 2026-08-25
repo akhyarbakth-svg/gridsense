@@ -1,3 +1,5 @@
+import { PageHeader } from "@/components/PageHeader";
+
 export default function LossAnalysisPage() {
-  return <div>Loss Analysis</div>;
+  return <PageHeader title="Loss Analysis" breadcrumb={["Analyze", "Loss Analysis"]} />;
 }

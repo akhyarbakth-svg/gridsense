@@ -1,3 +1,5 @@
+import { PageHeader } from "@/components/PageHeader";
+
 export default function ReportsPage() {
-  return <div>Reports</div>;
+  return <PageHeader title="Reports" breadcrumb={["Reports"]} />;
 }

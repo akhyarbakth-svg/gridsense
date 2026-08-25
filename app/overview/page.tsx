@@ -1,3 +1,5 @@
+import { PageHeader } from "@/components/PageHeader";
+
 export default function OverviewPage() {
-  return <div>Overview Dashboard</div>;
+  return <PageHeader title="Overview Dashboard" breadcrumb={["Monitor", "Overview"]} />;
 }

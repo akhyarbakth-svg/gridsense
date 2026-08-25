@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import { Sidebar } from "@/components/Sidebar";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -25,8 +26,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${outfit.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-canvas text-ink font-sans">
-        {children}
+      <body className="min-h-full bg-canvas text-ink font-sans">
+        <Sidebar />
+        <main className="ml-60 min-h-screen p-8">{children}</main>
       </body>
     </html>
   );

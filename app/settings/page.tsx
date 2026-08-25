@@ -1,3 +1,5 @@
+import { PageHeader } from "@/components/PageHeader";
+
 export default function SettingsPage() {
-  return <div>Settings</div>;
+  return <PageHeader title="Settings" breadcrumb={["Settings"]} />;
 }

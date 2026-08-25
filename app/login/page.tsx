@@ -1,3 +1,5 @@
+import { PageHeader } from "@/components/PageHeader";
+
 export default function LoginPage() {
-  return <div>Login</div>;
+  return <PageHeader title="Login" breadcrumb={["Auth", "Login"]} />;
 }

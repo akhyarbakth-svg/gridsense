@@ -1,3 +1,7 @@
+import { PageHeader } from "@/components/PageHeader";
+
 export default function EnergyAnalyticsPage() {
-  return <div>Energy Analytics</div>;
+  return (
+    <PageHeader title="Energy Analytics" breadcrumb={["Analyze", "Energy Analytics"]} />
+  );
 }
