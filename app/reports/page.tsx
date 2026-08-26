@@ -1,5 +1,5 @@
-import { PageHeader } from "@/components/PageHeader";
+import { ReportsScreen } from "@/components/reports/ReportsScreen";
 
 export default function ReportsPage() {
-  return <PageHeader title="Reports" breadcrumb={["Reports"]} />;
+  return <ReportsScreen />;
 }
