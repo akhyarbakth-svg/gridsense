@@ -24,7 +24,43 @@ export function formatTempC(value: number): string {
   return `${Math.round(value)} °C`;
 }
 
-/** Clock time for the live "updated" readout. */
+/**
+ * Wall-clock time of a stored timestamp, pinned to UTC.
+ *
+ * Stored timestamps carry a Z suffix, so rendering them in the runtime's local
+ * zone makes the server and the browser disagree whenever they differ — a
+ * hydration mismatch. Pinning to UTC keeps both sides identical and keeps the
+ * time consistent with dates formatted the same way.
+ */
+export function formatUtcTime(iso: string): string {
+  return new Date(iso).toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: "UTC",
+  });
+}
+
+/** Calendar date of a stored timestamp, pinned to UTC for the same reason. */
+export function formatUtcDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
+/** Span of time, e.g. "3 h 12 m". No "ago" — use formatElapsed for that. */
+export function formatDuration(minutes: number): string {
+  const rounded = Math.round(minutes);
+  if (rounded < 60) return `${rounded} min`;
+  const hours = Math.floor(rounded / 60);
+  const rest = rounded % 60;
+  return rest === 0 ? `${hours} h` : `${hours} h ${rest} m`;
+}
+
+/** Clock time for the live "updated" readout (client-side, local zone). */
 export function formatClock(iso: string): string {
   return new Date(iso).toLocaleTimeString("en-US", { hour12: false });
 }

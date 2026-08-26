@@ -1,7 +1,5 @@
-import { PageHeader } from "@/components/PageHeader";
+import { OutageManagementScreen } from "@/components/outages/OutageManagementScreen";
 
 export default function OutageManagementPage() {
-  return (
-    <PageHeader title="Outage Management" breadcrumb={["Monitor", "Outage Management"]} />
-  );
+  return <OutageManagementScreen />;
 }

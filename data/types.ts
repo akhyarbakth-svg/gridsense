@@ -71,13 +71,29 @@ export interface Alert {
   asset: AssetRef;
 }
 
+/** Restoration progress states (Figma 133:598): done, in flight, not yet reached. */
+export type TimelineState = "done" | "current" | "pending";
+
 export interface OutageTimelineEntry {
   timestamp: string;
   event: string;
+  /**
+   * SCHEMA ADDITION: the restoration timeline renders completed, active and
+   * pending steps differently. Stored rather than inferred from the clock so
+   * the server and client always render the same thing.
+   */
+  state: TimelineState;
 }
+
+/**
+ * SCHEMA ADDITION: Outage had no status field, but the map legend and incident
+ * panel both key off one (Figma 133:545).
+ */
+export type OutageStatus = "active" | "restoring" | "resolved";
 
 export interface Outage {
   id: string;
+  status: OutageStatus;
   feederId: string;
   location: string;
   startedAt: string;

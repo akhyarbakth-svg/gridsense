@@ -34,3 +34,11 @@ export const mapConnections: [string, string][] = [
   ["SUB-MIRPUR", "SUB-BANANI"],
   ["SUB-BANANI", "SUB-UTTARA"],
 ];
+
+/** Fault markers for the Outage Management map (Figma 133:505), by outage id. */
+export const outagePoints: MapPoint[] = [
+  { id: "OUT-5501", xPct: 37, yPct: 42 },
+  { id: "OUT-5502", xPct: 62, yPct: 60 },
+  { id: "OUT-5503", xPct: 22, yPct: 68 },
+  { id: "OUT-5504", xPct: 78, yPct: 34 },
+];
