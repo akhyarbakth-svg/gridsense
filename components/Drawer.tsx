@@ -132,10 +132,14 @@ export function Drawer({
 
   const content = resolve(target);
 
-  // Detail route per entity kind. Feeder and asset screens are still
-  // placeholders, so only the built ones are offered.
+  // Detail route per entity kind. Asset Health is still a placeholder, so the
+  // CTA stays disabled for transformers.
   const detailHref =
-    target.kind === "substation" ? `/substations/${target.id}` : null;
+    target.kind === "substation"
+      ? `/substations/${target.id}`
+      : target.kind === "feeder"
+        ? `/feeders/${target.id}`
+        : null;
 
   const viewDetails = () => {
     if (onViewDetails) return onViewDetails();

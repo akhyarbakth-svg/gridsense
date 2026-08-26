@@ -38,3 +38,12 @@ export const toneStroke: Record<Tone, string> = {
   critical: "var(--color-critical)",
   neutral: "var(--color-slate)",
 };
+
+/** Outlined pill: tinted bed, coloured hairline and label (Figma 132:329). */
+export const toneOutline: Record<Tone, string> = {
+  primary: "bg-primary/15 border-primary text-primary",
+  success: "bg-success-dot/15 border-success text-success",
+  warning: "bg-warning-dot/15 border-warning text-warning",
+  critical: "bg-critical-dot/15 border-critical text-critical",
+  neutral: "bg-badge-neutral border-hairline text-slate",
+};

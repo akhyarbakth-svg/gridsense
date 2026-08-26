@@ -1,5 +1,6 @@
 import { overviewKPIs } from "./overview";
-import type { Feeder } from "./types";
+import { substations } from "./substations";
+import type { Feeder, Transformer } from "./types";
 
 export const feeders: Feeder[] = [
   { id: "F-12", substationId: "SUB-MIRPUR", name: "F-12 Tejgaon Ind.", loadPct: 82, lossPct: 4.6, status: "warning" },
@@ -21,4 +22,20 @@ export function feederLoadMW(feeder: Feeder): number {
 
 export function feedersForSubstation(substationId: string): Feeder[] {
   return feeders.filter((feeder) => feeder.substationId === substationId);
+}
+
+/**
+ * Assets carried by a feeder.
+ *
+ * SCHEMA NOTE: Transformer belongs to a Substation, never to a Feeder, so there
+ * is no direct feeder -> transformer link in the CLAUDE.md entity list. The
+ * Feeder Details "Connected Assets" panel (Figma 132:457) is therefore resolved
+ * through the feeder's origin substation. A Transformer.feederId would make the
+ * relationship explicit if feeders are ever meant to own distinct asset sets.
+ */
+export function assetsForFeeder(feederId: string): Transformer[] {
+  const feeder = feeders.find((f) => f.id === feederId);
+  if (!feeder) return [];
+  const origin = substations.find((s) => s.id === feeder.substationId);
+  return origin ? origin.transformers : [];
 }
