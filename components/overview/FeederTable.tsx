@@ -5,10 +5,9 @@ import { TableHeader, type TableHeaderColumn } from "../TableHeader";
 import { TableRow } from "../TableRow";
 import type { DrawerTarget } from "../Drawer";
 import type { Tone } from "../status";
-import { feeders } from "@/data/feeders";
+import { feeders, feederLoadMW } from "@/data/feeders";
 import type { Status } from "@/data/types";
 import { formatMW, formatMWh, formatPct } from "@/lib/format";
-import { overviewKPIs } from "@/data/overview";
 
 // Figma: 49:1826 — feeder performance table. Rows open the contextual drawer.
 
@@ -37,10 +36,7 @@ function zoneFor(id: string): string {
   return `Zone ${String.fromCharCode(65 + (n % 3))}`;
 }
 
-// loadPct is a feeder's own utilization, not its share of the grid. Weighting each
-// feeder by its utilization against the total keeps the column summing to the
-// system load reported in the KPI strip.
-const totalLoadPct = feeders.reduce((sum, f) => sum + f.loadPct, 0);
+
 
 export function FeederTable({
   onSelect,
@@ -60,8 +56,7 @@ export function FeederTable({
         trailingLabel="Status"
       />
       {feeders.map((feeder) => {
-        const loadMW =
-          (overviewKPIs.currentLoadMW * feeder.loadPct) / totalLoadPct;
+        const loadMW = feederLoadMW(feeder);
         return (
           <TableRow
             key={feeder.id}

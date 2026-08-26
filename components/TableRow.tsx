@@ -36,8 +36,17 @@ export interface TableRowProps {
   href?: string;
   /** Opens the contextual drawer. Ignored when `href` is set. */
   onClick?: () => void;
+  /** Width of the leading name block in px. Defaults to the 216px feeder table. */
+  nameWidth?: number;
+  /** Flagged row treatment: tinted bed plus a 3px status-coloured left edge. */
+  emphasis?: "warning" | "critical";
   className?: string;
 }
+
+const emphasisStyles = {
+  warning: "bg-row-warning border-l-3 border-l-warning",
+  critical: "bg-row-critical border-l-3 border-l-critical",
+} as const;
 
 function Cell({ column }: { column: TableColumn }) {
   const { value, width, align = "left", mono, muted } = column;
@@ -67,13 +76,18 @@ export function TableRow({
   chart,
   href,
   onClick,
+  nameWidth = 216,
+  emphasis,
   className = "",
 }: TableRowProps) {
   const interactive = Boolean(href || onClick);
 
   const content = (
     <>
-      <div className="flex h-full w-54 shrink-0 items-center">
+      <div
+        className="flex h-full shrink-0 items-center"
+        style={{ width: nameWidth }}
+      >
         {status && (
           <div className="flex h-full w-14 shrink-0 items-center justify-center px-3">
             <PulseMark status={status} size={16} />
@@ -97,7 +111,9 @@ export function TableRow({
     </>
   );
 
-  const classes = `flex h-10 items-center gap-6 border-b border-hairline bg-surface px-4 ${
+  const classes = `flex h-10 items-center gap-6 border-b border-hairline px-4 ${
+    emphasis ? emphasisStyles[emphasis] : "bg-surface"
+  } ${
     interactive ? "cursor-pointer transition-[background-color] hover:bg-white/[0.03]" : ""
   } ${className}`;
 

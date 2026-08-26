@@ -15,6 +15,7 @@ export function TableHeader({
   nameLabel,
   columns,
   trailingLabel,
+  nameWidth = 216,
   className = "",
 }: {
   /** Label over the leading name block, e.g. "Feeder Name". */
@@ -22,13 +23,15 @@ export function TableHeader({
   columns: TableHeaderColumn[];
   /** Label over the trailing status column. */
   trailingLabel?: string;
+  /** Must match the TableRow nameWidth so headers line up with cells. */
+  nameWidth?: number;
   className?: string;
 }) {
   return (
     <div
       className={`flex h-8 items-center gap-6 border-b border-hairline px-4 ${className}`}
     >
-      <div className="flex w-54 shrink-0 items-center">
+      <div className="flex shrink-0 items-center" style={{ width: nameWidth }}>
         <span className={`px-3 ${labelCls}`}>{nameLabel}</span>
       </div>
 

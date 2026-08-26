@@ -19,6 +19,12 @@ export interface Transformer {
   healthScore: number;
   ageYears: number;
   operatingHours: number;
+  /**
+   * SCHEMA ADDITION: the Substation Details table (Figma 114:495) has a
+   * "Last Maint." column with no field behind it in the CLAUDE.md entity list.
+   * ISO date.
+   */
+  lastMaintenance: string;
 }
 
 export interface Substation {
@@ -33,6 +39,11 @@ export interface Substation {
 
 export interface Feeder {
   id: string;
+  /**
+   * SCHEMA ADDITION: feeders had no link to their substation, so the
+   * "Connected Output Feeders" table (Figma 114:602) could not be filtered.
+   */
+  substationId: string;
   name: string;
   loadPct: number;
   lossPct: number;

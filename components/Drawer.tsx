@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { PulseMark } from "./PulseMark";
 import { StatusPill } from "./StatusPill";
 import { toneText, type Tone } from "./status";
@@ -113,8 +114,10 @@ export function Drawer({
   target: DrawerTarget | null;
   open: boolean;
   onClose: () => void;
+  /** Overrides the default routing for "View details". */
   onViewDetails?: () => void;
 }) {
+  const router = useRouter();
   // Escape closes the drawer.
   useEffect(() => {
     if (!open) return;
@@ -128,6 +131,19 @@ export function Drawer({
   if (!target) return null;
 
   const content = resolve(target);
+
+  // Detail route per entity kind. Feeder and asset screens are still
+  // placeholders, so only the built ones are offered.
+  const detailHref =
+    target.kind === "substation" ? `/substations/${target.id}` : null;
+
+  const viewDetails = () => {
+    if (onViewDetails) return onViewDetails();
+    if (detailHref) {
+      onClose();
+      router.push(detailHref);
+    }
+  };
 
   return (
     <>
@@ -255,8 +271,9 @@ export function Drawer({
         <div className="mt-auto pt-3">
           <button
             type="button"
-            onClick={onViewDetails}
-            className="flex items-center gap-1.5 text-[13px] font-medium text-primary hover:underline"
+            onClick={viewDetails}
+            disabled={!onViewDetails && !detailHref}
+            className="flex items-center gap-1.5 text-[13px] font-medium text-primary hover:underline disabled:cursor-default disabled:opacity-40 disabled:hover:no-underline"
           >
             View details
             <svg
