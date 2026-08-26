@@ -1,5 +1,5 @@
-import { PageHeader } from "@/components/PageHeader";
+import { LiveGridScreen } from "@/components/live-grid/LiveGridScreen";
 
 export default function LiveGridPage() {
-  return <PageHeader title="Live Grid Map" breadcrumb={["Monitor", "Live Grid"]} />;
+  return <LiveGridScreen />;
 }
