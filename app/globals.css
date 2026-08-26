@@ -39,6 +39,21 @@
 
   /* Motion — a single entrance, used to stagger a screen's sections in. */
   --animate-rise: rise 0.35s ease-out both;
+
+  /* Route change. Opacity ONLY — deliberately no transform.
+     A transformed element becomes the containing block for any
+     `position: fixed` descendant, which pulls the contextual drawer out of
+     the viewport and anchors it to the page wrapper instead. */
+  --animate-page-in: page-in 0.26s ease-out both;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes rise {
@@ -72,3 +87,4 @@ body {
   background: var(--color-canvas);
   color: var(--color-ink);
 }
+
