@@ -64,7 +64,7 @@ function DonutRing({ percent, tone }: { percent: number; tone: Tone }) {
       viewBox={`0 0 ${RING_SIZE} ${RING_SIZE}`}
       className="shrink-0"
       role="img"
-      aria-label={`${clamped}%`}
+      aria-label={`${clamped.toFixed(1)}%`}
     >
       <circle
         cx={RING_SIZE / 2}

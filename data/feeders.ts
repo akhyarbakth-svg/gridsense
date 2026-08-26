@@ -39,3 +39,12 @@ export function assetsForFeeder(feederId: string): Transformer[] {
   const origin = substations.find((s) => s.id === feeder.substationId);
   return origin ? origin.transformers : [];
 }
+
+/**
+ * Zone is a presentation grouping rather than a stored field; derived from the
+ * feeder id so it stays stable wherever it is shown.
+ */
+export function feederZone(feeder: Feeder): string {
+  const n = Number(feeder.id.replace(/\D/g, ""));
+  return `Zone ${String.fromCharCode(65 + (n % 3))}`;
+}

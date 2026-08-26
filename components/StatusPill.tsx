@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { toneBadge, toneOutline, type Tone } from "./status";
 
 // Figma: 49:1853 — 22px tall, 10px/4px padding, fully rounded,
@@ -11,6 +12,7 @@ export function StatusPill({
   shape = "pill",
   caps = true,
   variant = "solid",
+  icon,
   className = "",
 }: {
   label: string;
@@ -19,16 +21,19 @@ export function StatusPill({
   caps?: boolean;
   /** Outlined pills carry a coloured hairline over a tinted bed. */
   variant?: "solid" | "outline";
+  /** Leading node, e.g. a PulseMark on live status badges. */
+  icon?: ReactNode;
   className?: string;
 }) {
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-1 text-[11px] font-medium ${
+      className={`inline-flex items-center gap-2 px-2.5 py-1 text-[11px] font-medium ${
         shape === "pill" ? "rounded-full" : "rounded-sm"
       } ${caps ? "uppercase tracking-[0.66px]" : ""} ${
         variant === "outline" ? `border ${toneOutline[tone]}` : toneBadge[tone]
       } ${className}`}
     >
+      {icon}
       {label}
     </span>
   );

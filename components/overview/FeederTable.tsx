@@ -5,7 +5,7 @@ import { TableHeader, type TableHeaderColumn } from "../TableHeader";
 import { TableRow } from "../TableRow";
 import type { DrawerTarget } from "../Drawer";
 import type { Tone } from "../status";
-import { feeders, feederLoadMW } from "@/data/feeders";
+import { feeders, feederLoadMW, feederZone } from "@/data/feeders";
 import type { Status } from "@/data/types";
 import { formatMW, formatMWh, formatPct } from "@/lib/format";
 
@@ -29,12 +29,6 @@ const statusLabel: Record<Status, string> = {
   warning: "Strained",
   critical: "Offline",
 };
-
-/** Zone is a presentation grouping, derived from the feeder id so it stays stable. */
-function zoneFor(id: string): string {
-  const n = Number(id.replace(/\D/g, ""));
-  return `Zone ${String.fromCharCode(65 + (n % 3))}`;
-}
 
 
 
@@ -63,7 +57,7 @@ export function FeederTable({
             status={feeder.status}
             name={feeder.name}
             columns={[
-              { key: "zone", value: zoneFor(feeder.id), width: 120, muted: true },
+              { key: "zone", value: feederZone(feeder), width: 120, muted: true },
               {
                 key: "load",
                 value: formatMW(loadMW),
