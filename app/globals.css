@@ -36,6 +36,36 @@
   /* Fonts */
   --font-sans: var(--font-outfit), sans-serif;
   --font-mono: var(--font-ibm-plex-mono), monospace;
+
+  /* Motion — a single entrance, used to stagger a screen's sections in. */
+  --animate-rise: rise 0.35s ease-out both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/*
+ * Respect the OS "reduce motion" setting. Durations collapse rather than the
+ * animation being removed outright, so anything relying on an animation's end
+ * state still lands on it.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {

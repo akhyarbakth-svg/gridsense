@@ -23,6 +23,10 @@ const markerFill: Record<Status, string> = {
 
 const legendFill: Record<Status, string> = markerFill;
 
+// Markers grow slightly under the cursor. Scale composes with the centering
+// translate on the same transform, so the marker stays anchored to its point.
+const markerMotion = "transition-transform duration-150 ease-out";
+
 const transformers = substations.flatMap((s) => s.transformers);
 const pointById = new Map(substationPoints.map((p) => [p.id, p]));
 
@@ -121,7 +125,7 @@ export function NetworkMap({
               onClick={() => onSelect({ kind: "transformer", id: transformer.id })}
               aria-label={`Transformer ${transformer.id}`}
               title={`${transformer.id} · ${transformer.loadPct}%`}
-              className={`absolute size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-[2px] ${markerFill[transformer.status]} hover:ring-2 hover:ring-ink/40`}
+              className={`absolute size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-[2px] ${markerMotion} ${markerFill[transformer.status]} hover:scale-125 hover:ring-2 hover:ring-ink/40`}
               style={{ left: `${point.xPct}%`, top: `${point.yPct}%` }}
             />
           );
@@ -138,7 +142,7 @@ export function NetworkMap({
               onClick={() => onSelect({ kind: "substation", id: substation.id })}
               aria-label={substation.name}
               title={`${substation.name} · ${substation.utilizationPct}%`}
-              className={`absolute size-4 -translate-x-1/2 -translate-y-1/2 rounded-full ${markerFill[substation.status]} hover:ring-2 hover:ring-ink/40`}
+              className={`absolute size-4 -translate-x-1/2 -translate-y-1/2 rounded-full ${markerMotion} ${markerFill[substation.status]} hover:scale-125 hover:ring-2 hover:ring-ink/40`}
               style={{ left: `${point.xPct}%`, top: `${point.yPct}%` }}
             />
           );

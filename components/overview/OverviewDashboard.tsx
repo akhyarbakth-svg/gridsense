@@ -14,6 +14,18 @@ import { PowerFlowCard } from "./PowerFlowCard";
 
 // Figma: 49:1711. Owns the contextual drawer state for the whole screen —
 // map markers, feeder rows and alert cards all open the same drawer.
+//
+// Sections rise in on load, staggered by row, so the dashboard assembles
+// rather than snapping in. The delay is inline because it varies per section;
+// prefers-reduced-motion collapses the whole thing (see globals.css).
+
+/** Entrance for the nth section down the page. */
+function rise(index: number) {
+  return {
+    className: "animate-rise",
+    style: { animationDelay: `${index * 70}ms` },
+  };
+}
 
 export function OverviewDashboard() {
   // `target` is kept after closing so the drawer slides out with its content
@@ -44,16 +56,20 @@ export function OverviewDashboard() {
       />
 
       <div className="flex flex-col gap-6">
-        <KpiStrip kpis={kpis} />
+        <div {...rise(0)}>
+          <KpiStrip kpis={kpis} />
+        </div>
 
-        <div className="flex gap-4">
+        <div className={`flex gap-4 ${rise(1).className}`} style={rise(1).style}>
           <NetworkMap onSelect={select} />
           <AlertsPanel onSelect={select} />
         </div>
 
-        <FeederTable onSelect={select} />
+        <div {...rise(2)}>
+          <FeederTable onSelect={select} />
+        </div>
 
-        <div className="flex gap-4">
+        <div className={`flex gap-4 ${rise(3).className}`} style={rise(3).style}>
           <LoadTrendCard kpis={kpis} />
           <PowerFlowCard kpis={kpis} />
         </div>

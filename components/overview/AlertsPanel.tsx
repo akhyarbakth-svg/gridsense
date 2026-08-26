@@ -28,6 +28,7 @@ export function AlertsPanel({
             title={alert.title}
             context={`${alert.expectedImpact.split(",")[0]} · ${formatElapsed(alert.durationMinutes)}`}
             onViewDetails={() => onSelect(alert.asset)}
+            className="transition-transform duration-200 ease-out hover:-translate-y-0.5"
           />
         ))}
       </div>
