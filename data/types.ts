@@ -25,6 +25,29 @@ export interface Transformer {
    * ISO date.
    */
   lastMaintenance: string;
+
+  /**
+   * SCHEMA ADDITIONS for the Asset Health screen (Figma 134:606). The AI risk
+   * block is simulated, not real inference — these are stored mock values,
+   * consistent with the rest of the app's simulated-live approach.
+   */
+  riskPct: number;
+  riskWindowDays: number;
+  riskFactors: string[];
+  recommendedAction: string;
+
+  /**
+   * SCHEMA ADDITION: past faults for the Fault History panel (Figma 134:659).
+   * Maintenance history comes from Work Orders; faults have no other source.
+   */
+  faultHistory: AssetEvent[];
+}
+
+/** A dated event against an asset — a fault, a test, a service visit. */
+export interface AssetEvent {
+  date: string;
+  event: string;
+  outcome: Status;
 }
 
 export interface Substation {
