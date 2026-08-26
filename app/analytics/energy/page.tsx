@@ -1,7 +1,5 @@
-import { PageHeader } from "@/components/PageHeader";
+import { EnergyAnalyticsScreen } from "@/components/energy/EnergyAnalyticsScreen";
 
 export default function EnergyAnalyticsPage() {
-  return (
-    <PageHeader title="Energy Analytics" breadcrumb={["Analyze", "Energy Analytics"]} />
-  );
+  return <EnergyAnalyticsScreen />;
 }

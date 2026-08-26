@@ -9,15 +9,20 @@ export interface LoadPoint {
   loadMW: number;
 }
 
-/** Relative shape of a day's demand curve, 0–1, indexed by hour. */
-const shape = [
+/**
+ * Relative shape of a day's demand curve, 0–1, indexed by hour: low overnight,
+ * climbing through the morning, peaking in the evening. Exported so every
+ * curve in the app (load trend, feeder history, demand curve) derives from one
+ * shape rather than each inventing its own.
+ */
+export const dailyShape = [
   0.62, 0.58, 0.55, 0.54, 0.56, 0.61, 0.68, 0.74, 0.79, 0.82, 0.84, 0.85, 0.86,
   0.85, 0.84, 0.86, 0.89, 0.93, 0.97, 1.0, 0.97, 0.91, 0.83, 0.74,
 ];
 
 export const PEAK_HOUR = "19:00";
 
-export const loadTrend: LoadPoint[] = shape.map((factor, hour) => ({
+export const loadTrend: LoadPoint[] = dailyShape.map((factor, hour) => ({
   hour: `${String(hour).padStart(2, "0")}:00`,
   loadMW: Number((overviewKPIs.peakDemandMW * factor).toFixed(1)),
 }));
