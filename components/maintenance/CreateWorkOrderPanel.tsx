@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "../Button";
+import { FieldLabel, inputClassName } from "../FormField";
 import { feeders } from "@/data/feeders";
 import { substations } from "@/data/substations";
 import type { WorkOrder, WorkOrderPriority } from "@/data/types";
@@ -36,17 +37,6 @@ const assetGroups = [
     options: feeders.map((f) => ({ value: f.id, label: f.name })),
   },
 ];
-
-const fieldCls =
-  "w-full rounded-sm border border-hairline bg-surface-sunken px-3 py-2 text-[14px] text-ink outline-none placeholder:text-slate focus-visible:border-primary";
-
-function Label({ children }: { children: string }) {
-  return (
-    <span className="text-[11px] font-medium uppercase tracking-[0.66px] text-slate">
-      {children}
-    </span>
-  );
-}
 
 export function CreateWorkOrderPanel({
   teams,
@@ -127,13 +117,13 @@ export function CreateWorkOrderPanel({
 
       <div className="flex flex-col gap-4 p-5">
         <label className="flex flex-col gap-1.5">
-          <Label>Asset ID / Location Target</Label>
+          <FieldLabel>Asset ID / Location Target</FieldLabel>
           <select
             autoFocus={Boolean(presetAssetId)}
             value={assetId}
             onChange={(event) => setAssetId(event.target.value)}
             required
-            className={fieldCls}
+            className={inputClassName}
           >
             <option value="">Select electrical asset…</option>
             {assetGroups.map((group) => (
@@ -149,25 +139,25 @@ export function CreateWorkOrderPanel({
         </label>
 
         <label className="flex flex-col gap-1.5">
-          <Label>Primary Fault / System Issue</Label>
+          <FieldLabel>Primary Fault / System Issue</FieldLabel>
           <input
             value={issue}
             onChange={(event) => setIssue(event.target.value)}
             required
             placeholder="E.g. SF6 leakage detected…"
-            className={fieldCls}
+            className={inputClassName}
           />
         </label>
 
         <div className="flex gap-3">
           <label className="flex flex-1 flex-col gap-1.5">
-            <Label>Priority Tier</Label>
+            <FieldLabel>Priority Tier</FieldLabel>
             <select
               value={priority}
               onChange={(event) =>
                 setPriority(event.target.value as WorkOrderPriority)
               }
-              className={fieldCls}
+              className={inputClassName}
             >
               {priorities.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -178,11 +168,11 @@ export function CreateWorkOrderPanel({
           </label>
 
           <label className="flex flex-1 flex-col gap-1.5">
-            <Label>Assigned Ops Team</Label>
+            <FieldLabel>Assigned Ops Team</FieldLabel>
             <select
               value={team}
               onChange={(event) => setTeam(event.target.value)}
-              className={fieldCls}
+              className={inputClassName}
             >
               {teams.map((option) => (
                 <option key={option} value={option}>
@@ -194,24 +184,24 @@ export function CreateWorkOrderPanel({
         </div>
 
         <label className="flex flex-col gap-1.5">
-          <Label>Target Clearance Date</Label>
+          <FieldLabel>Target Clearance Date</FieldLabel>
           <input
             type="date"
             value={dueDate}
             min={today}
             onChange={(event) => setDueDate(event.target.value)}
-            className={fieldCls}
+            className={inputClassName}
           />
         </label>
 
         <label className="flex flex-col gap-1.5">
-          <Label>Operator Remarks &amp; Directives</Label>
+          <FieldLabel>Operator Remarks &amp; Directives</FieldLabel>
           <textarea
             value={description}
             onChange={(event) => setDescription(event.target.value)}
             rows={4}
             placeholder="Specify telemetry context, safety boundaries and high voltage precautions…"
-            className={`${fieldCls} resize-none`}
+            className={`${inputClassName} resize-none`}
           />
         </label>
 

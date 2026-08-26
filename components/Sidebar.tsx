@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { alerts } from "@/data/alerts";
+import { operator } from "@/data/operator";
 import { Icon } from "./Icon";
 import { PulseMark } from "./PulseMark";
 import { navGroups, isNavItemActive } from "./nav";
@@ -82,11 +83,11 @@ export function Sidebar() {
       {/* Profile footer + settings */}
       <div className="flex items-center gap-3 border-t border-hairline px-4 py-3">
         <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-[13px] font-semibold text-white">
-          AB
+          {operator.initials}
         </span>
         <div className="min-w-0 flex-1">
           <div className="truncate text-[13px] font-medium text-ink">
-            A. Bakth
+            {operator.name}
           </div>
           <div className="truncate text-[11px] text-slate">Grid Operator</div>
         </div>

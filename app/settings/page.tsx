@@ -1,5 +1,5 @@
-import { PageHeader } from "@/components/PageHeader";
+import { SettingsScreen } from "@/components/settings/SettingsScreen";
 
 export default function SettingsPage() {
-  return <PageHeader title="Settings" breadcrumb={["Settings"]} />;
+  return <SettingsScreen />;
 }
