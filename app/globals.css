@@ -45,6 +45,39 @@
      `position: fixed` descendant, which pulls the contextual drawer out of
      the viewport and anchors it to the page wrapper instead. */
   --animate-page-in: page-in 0.26s ease-out both;
+
+  /* A soft light drifting across the network map canvas. Long and low
+     contrast so it reads as ambience, not as data changing. */
+  --animate-sheen: sheen 18s ease-in-out infinite;
+
+  /* Radar blip for critical nodes: one expanding pulse per second. */
+  --animate-blip: blip 1s ease-out infinite;
+}
+
+@keyframes sheen {
+  0%,
+  100% {
+    transform: translate3d(-12%, -6%, 0);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate3d(12%, 6%, 0);
+    opacity: 0.6;
+  }
+}
+
+@keyframes blip {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
 }
 
 @keyframes page-in {

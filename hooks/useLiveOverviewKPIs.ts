@@ -6,7 +6,9 @@ import { overviewKPIs } from "@/data/overview";
 import type { OverviewKPIs } from "@/data/types";
 
 const JITTER_PCT = 0.03;
-const INTERVAL_MS = 5000;
+// Overview reads as a live console, so the load figure and its timestamp
+// re-jitter every second. Only the two fields CLAUDE.md marks LIVE move.
+const INTERVAL_MS = 1000;
 
 export function useLiveOverviewKPIs(): OverviewKPIs {
   const [live, setLive] = useState<OverviewKPIs>(overviewKPIs);

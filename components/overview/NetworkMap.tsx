@@ -27,6 +27,20 @@ const legendFill: Record<Status, string> = markerFill;
 // translate on the same transform, so the marker stays anchored to its point.
 const markerMotion = "transition-transform duration-150 ease-out";
 
+/**
+ * Radar blip behind a critical node. Absolute inside the marker, so it inherits
+ * the marker's position and expands from its centre. `shape` matches the node
+ * it sits under — circles for substations, squares for transformers.
+ */
+function Blip({ shape }: { shape: string }) {
+  return (
+    <span
+      className={`pointer-events-none absolute inset-0 bg-critical-dot animate-blip ${shape}`}
+      aria-hidden
+    />
+  );
+}
+
 const transformers = substations.flatMap((s) => s.transformers);
 const pointById = new Map(substationPoints.map((p) => [p.id, p]));
 
@@ -64,6 +78,16 @@ export function NetworkMap({
       />
 
       <div className="relative h-80 w-full overflow-hidden rounded-sm bg-surface-sunken">
+        {/* Ambient light drifting across the canvas, beneath everything else */}
+        <span
+          className="pointer-events-none absolute -inset-1/4 animate-sheen"
+          style={{
+            background:
+              "radial-gradient(45% 45% at 50% 50%, color-mix(in oklab, var(--color-primary) 22%, transparent) 0%, transparent 70%)",
+          }}
+          aria-hidden
+        />
+
         {/* Faint reference grid + transmission lines */}
         <svg
           className="absolute inset-0 h-full w-full"
@@ -127,7 +151,11 @@ export function NetworkMap({
               title={`${transformer.id} · ${transformer.loadPct}%`}
               className={`absolute size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-[2px] ${markerMotion} ${markerFill[transformer.status]} hover:scale-125 hover:ring-2 hover:ring-ink/40`}
               style={{ left: `${point.xPct}%`, top: `${point.yPct}%` }}
-            />
+            >
+              {transformer.status === "critical" && (
+                <Blip shape="rounded-[2px]" />
+              )}
+            </button>
           );
         })}
 
@@ -144,7 +172,9 @@ export function NetworkMap({
               title={`${substation.name} · ${substation.utilizationPct}%`}
               className={`absolute size-4 -translate-x-1/2 -translate-y-1/2 rounded-full ${markerMotion} ${markerFill[substation.status]} hover:scale-125 hover:ring-2 hover:ring-ink/40`}
               style={{ left: `${point.xPct}%`, top: `${point.yPct}%` }}
-            />
+            >
+              {substation.status === "critical" && <Blip shape="rounded-full" />}
+            </button>
           );
         })}
 
